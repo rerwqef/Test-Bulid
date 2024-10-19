@@ -11,7 +11,7 @@ namespace TS.DoubleSlider
         public Button Rightbtn;
         [SerializeField] private SingleSlider _sliderMininner;
         [SerializeField] private SingleSlider _sliderMaxinner;
-           [SerializeField] private SingleSlider _sliderMinOuter;
+        [SerializeField] private SingleSlider _sliderMinOuter;
         [SerializeField] private SingleSlider _sliderMaxouter;
         [SerializeField] private DoubleSlider _sliderInner;
         [SerializeField] private DoubleSlider _sliderOuter;
@@ -26,11 +26,10 @@ namespace TS.DoubleSlider
 
         void Setup()
         {
-        _sliderMininner.Value=0;
-        _sliderMaxinner.Value=100;
-        _sliderMinOuter.Value=25;
-        _sliderMaxouter.Value=75;
-
+            _sliderMininner.Value = 0;
+            _sliderMaxinner.Value = 100;
+            _sliderMinOuter.Value = 25;
+            _sliderMaxouter.Value = 75;
         }
 
         // Coroutine to smoothly change both slider values
@@ -54,15 +53,25 @@ namespace TS.DoubleSlider
         void HandOpen()
         {
             Debug.Log("Attempting to open hand");
-            StartCoroutine(SmoothChange(_sliderMinOuter, 15, _sliderMinOuter, 90, 1f)); // Change both sliders over 1 second
-         //   Debug.Log($"Min: {_slider.MinValue}, Max: {_slider.MaxValue}");
+            StartCoroutine(SmoothChange(_sliderMinOuter, 15, _sliderMaxouter, 90, 1f)); // Change both sliders over 1 second
+             // Calculate Arom after opening hand
         }
 
         void HandClose()
         {
             Debug.Log("Attempting to close hand");
-            StartCoroutine(SmoothChange(_sliderMininner, 10, _sliderMaxinner, 90, 1f)); // Change both sliders over 1 second
-          //  Debug.Log($"Min: {_slider.MinValue}, Max: {_slider.MaxValue}");
+            StartCoroutine(SmoothChange(_sliderMininner, 15, _sliderMaxinner, 90, 1f)); // Change both sliders over 1 second
+           // Calculate Arom after closing hand
+        }
+
+        // Method to calculate Arom
+        void CalculateArom()
+        {
+            float handOpenedDistance = 15; // Get the max outer slider value
+            float handClosedDistance = 15; // Get the max inner slider value
+
+            float arom = (handOpenedDistance - handClosedDistance) / 2; // Calculate Arom
+            Debug.Log($"Calculated Arom: {arom}"); // Output the result
         }
     }
 }
